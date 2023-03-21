@@ -1,3 +1,11 @@
+
+export type FormState = {
+    image: string;
+    name: string;
+    description: string;
+    location: string;
+  }
+
 import { Response } from 'express';
 
 declare module 'express' {
@@ -20,3 +28,4 @@ declare module 'express' {
     ) => Response;
   }
 }
+
