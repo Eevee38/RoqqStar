@@ -5,7 +5,7 @@ import  { FormState } from '../../types'
 
 const RockEntries = () => {
   const [entries, setEntries] = useState([])
-  let [key, setKey] = useState(0);
+  let [id, setId] = useState(0);
   const [formState, setFormState] = useState<FormState>({
     name: '',
     image: '',
@@ -23,8 +23,14 @@ const RockEntries = () => {
       
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    entries.push(<RockEntry key={key} editEntry={editEntry} deleteEntry={deleteEntry} entries={entries} formState={formState} />);
-    setKey(key += 1); 
+    entries.push(<RockEntry key={id} 
+        id={id} 
+        editEntry={editEntry} 
+        deleteEntry={deleteEntry} 
+        entries={entries} 
+        formState={formState}
+        setFormState={setFormState} />);
+    setId(id += 1); 
     setEntries( [...entries]);
     clearForm();
   };
@@ -38,20 +44,38 @@ const RockEntries = () => {
     });
   }
 
-  const deleteEntry = ():void => {
-    for (let entry of entries) {
-      console.log('entries in delete', entry)
-    }
+  const deleteEntry = (id: number): void=> {
+      const url = `http://localhost:8080/rock/delete`;
+    //   fetch(url, {
+    //     method: 'DELETE',
+    //   })
+    //   .then(response => {
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
+    //     // Filter out the deleted entry from the entries array
+    //     const updatedEntries = entries.filter(entry => entry.id !== id);
+    //     // Update the state with the new entries array
+    //     setEntries(updatedEntries);
+    //     console.log('Entry deleted successfully!');
+    //   })
+    //   .catch(error => {
+    //     console.error('Error deleting entry:', error);
+    //   });
+    // }
+  };
+
+  
+
+
+const editEntry = (arg: number):void => {
+
+    console.log('entries in edit', arg)
+  
 }
 
-const editEntry = ():void => {
-  for (let entry of entries) {
-    console.log('entries in edit', entry)
-  }
-}
-  useEffect(() => {
-    console.log('entries in RockEntries', entries)
-  }, [entries]);
+  // useEffect(() => {
+  // }, [entries]);
       
     return (
         <div id="rockentries">

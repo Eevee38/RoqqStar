@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEventHandler, useState } from 'react'
 import  { FormState } from '../../types'
 import DeleteEntry from './DeleteEntry';
 import EditEntry from './EditEntry';
@@ -7,6 +7,8 @@ interface RockEntryProps {
   entries: Array<FormState>;
   deleteEntry: Function;
   editEntry: Function;
+  setFormState: Function
+  id: number
 }
 
 const RockEntry = (props: RockEntryProps) => {
