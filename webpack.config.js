@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-export default {
+module.exports = {
   mode: 'development',
   entry: './src/client/App.tsx',
   output: {

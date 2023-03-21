@@ -7,10 +7,19 @@ type Controller = { auth: RequestHandler, userCheck: RequestHandler, createUser:
 
 const authController: Controller = { 
     auth : (req: Request, res: Response, next: NextFunction) => {
-    console.log('hi');
-    return next();
     // check if token on cookie is valid 
     // jwt.verify(token, process.env.SECRET_KEY)
+    type Token = {token: string};
+    if (req.cookies.token) {
+        jwt.verify(req.cookies.token, process.env.SECRET_KEY, function(err: Error, token: Token) {
+            if (err) {
+                console.log('err', err);
+            } else {
+                res.locals.token = token.token;
+                return next();
+            }
+        });
+    }
     },
     userCheck : (req: Request, res: Response, next: NextFunction) => {
         const { username, password, email } = req.body;
