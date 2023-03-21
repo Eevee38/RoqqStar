@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-    "module": "CommonJS",
+    // "module": "ES6",
+    "module": "commonjs",
     "esModuleInterop": true,
     "target": "es5",
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "types": ["node", "express"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
