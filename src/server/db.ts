@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 
 export default {
-  query: (text: string, params: []) => {
+  query: (text: string, params: string[]) => {
     console.log('executed query: ', text);
     return pool.query(text, params);
   },

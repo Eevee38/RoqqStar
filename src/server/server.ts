@@ -1,10 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
-// const express = require('express');
 import path from 'path';
 import rockRouter from './routes/rockRouter.js';
 import loginRouter from './routes/loginRouter.js';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
+import authController from './controllers/authController';
+import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,7 +20,7 @@ app.use(cookieParser());
 
 // const loginRouter = express.Router();
 
-app.post('/login', (req: Request, res: Response) => {
+app.post('/login', authController.auth, (req: Request, res: Response) => {
   // const { username, password } = req.body;
   // first want to see if username is in database
   // if it is, we return the hashed password and user id from the db
@@ -48,6 +49,15 @@ app.post('/login', (req: Request, res: Response) => {
   return res.status(200).json({ token: token });
 });
 
+app.post('/create', authController.userCheck, authController.createUser, (req: Request, res: Response, next: NextFunction) => {
+  console.log('made it');
+  res.sendStatus(201);
+})
+
+
+
+
+// catch-all route handler
 app.use('*', (req: Request, res: Response) => {
   res.status(404).send('Page Not Found');
 });
@@ -55,6 +65,7 @@ app.use('*', (req: Request, res: Response) => {
 type Message = { err: string };
 type ServerError = { log: string; status: number; message: Message };
 
+// global error handler
 app.use(
   '/',
   (err: ServerError, req: Request, res: Response, next: NextFunction) => {
