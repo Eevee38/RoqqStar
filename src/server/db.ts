@@ -8,7 +8,7 @@ const pool = new Pool({
   connectionString: PG_URI,
 });
 
-module.exports = {
+export default {
   query: (text: string, params: []) => {
     console.log('executed query: ', text);
     return pool.query(text, params);
