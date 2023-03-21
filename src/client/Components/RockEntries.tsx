@@ -5,6 +5,7 @@ import  { FormState } from '../../types'
 
 const RockEntries = () => {
   const [entries, setEntries] = useState([])
+  let [key, setKey] = useState(0);
   const [formState, setFormState] = useState<FormState>({
     name: '',
     image: '',
@@ -22,7 +23,9 @@ const RockEntries = () => {
       
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setEntries([...entries, <RockEntry formState={formState} />]);
+    entries.push(<RockEntry key={key} editEntry={editEntry} deleteEntry={deleteEntry} entries={entries} formState={formState} />);
+    setKey(key += 1); 
+    setEntries( [...entries]);
     clearForm();
   };
 
@@ -34,9 +37,27 @@ const RockEntries = () => {
       location: '',
     });
   }
+
+  const deleteEntry = ():void => {
+    for (let entry of entries) {
+      console.log('entries in delete', entry)
+    }
+}
+
+const editEntry = ():void => {
+  for (let entry of entries) {
+    console.log('entries in edit', entry)
+  }
+}
+  useEffect(() => {
+    console.log('entries in RockEntries', entries)
+  }, [entries]);
       
     return (
-        <div>
+        <div id="rockentries">
+
+          <div>
+
           <form onSubmit={handleSubmit}>
             <label>
               Name:
@@ -56,8 +77,10 @@ const RockEntries = () => {
             </label>
             <button type="submit">Submit</button>
           </form>
+          </div>       
+          <div>
             {entries}
-
+          </div>
         </div>
     )
 }

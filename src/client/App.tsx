@@ -6,14 +6,14 @@ import RockEntries from './Components/RockEntries';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <div className="appDiv">
       <h1>RoqqStar</h1>
      
     <Router>
         <Routes>
             <Route path="/" element={<LoginPage/>}></Route>
             <Route path="/main" element={<RockEntries/>}></Route>
-            </Routes>
+        </Routes>
     </Router>
     </div>
   );

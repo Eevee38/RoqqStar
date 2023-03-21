@@ -1,9 +1,14 @@
+import  { FormState } from '../../types'
+interface EditEntryProps {
+    formState: FormState;
+    entries: Array<FormState>
+    editEntry: Function
+  }
 
-
-const EditEntry = () => {
+const EditEntry = (props: EditEntryProps) => {
     return (
         <div>
-            <h1>hi</h1>
+            <button onClick={() => props.editEntry()}>Edit Entry</button> 
         </div>
     )
 }

@@ -36,8 +36,8 @@ const LoginPage = () => {
       }
   
     return (
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form id="loginform" onSubmit={handleSubmit}>
+        <label className="label1">
           Username:
           <input
             type="text"
@@ -46,7 +46,7 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </label>
-        <label>
+        <label className="label1">
           Password:
           <input
             type="password"
@@ -55,7 +55,7 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </label>
-        <button type="submit">Login</button>
+        <button className= "label1" type="submit">Login</button>
       </form>
     );
   }

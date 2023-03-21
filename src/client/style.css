@@ -1,0 +1,27 @@
+.rockentry {
+    border: 1px solid black;
+  }
+
+#rockentries{
+    border: 1px solid black;
+    margin: 3px;
+    display:flex;
+    flex-direction:column;
+}
+
+.appDiv{
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginform{
+  display:flex;
+  flex-direction:column;
+
+}
+
+.label1{
+  padding:10px;
+}
