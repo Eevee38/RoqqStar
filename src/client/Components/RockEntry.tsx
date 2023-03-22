@@ -40,8 +40,14 @@ const RockEntry = (props: RockEntryProps) => {
     <div className="rockentry">
       <h2>{name}</h2>
       <img src={image} style={{ width: '200px' }} />
-      <p>Memo: {description}</p>
-      <p>Location: {location}</p>
+      <p className="label">
+        <span className="memoloc">Memo: </span>
+        {description}
+      </p>
+      <p className="label">
+        <span className="memoloc">Location: </span>
+        {location}
+      </p>
     </div>
   );
 };

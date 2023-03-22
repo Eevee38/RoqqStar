@@ -9,7 +9,7 @@ import ForgotPage from './Components/ForgotPage';
 const App: React.FC = () => {
   return (
     <div className="appDiv">
-      <h1>RoqqStar</h1>
+      <h1 id='roqqstarh1'>RoqqStar</h1>
      
     <Router>
         <Routes>

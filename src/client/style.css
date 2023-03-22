@@ -1,71 +1,71 @@
-#rockentrywrapper2{
- 
-  width:700px;
+#rockentrywrapper2 {
+  width: 700px;
   height: 100%;
 }
 
-#rockentrywrapper{
+#rockentrywrapper {
   /* width:500px;
   margin:30px 0; */
-  display:flex;
-  flex-direction:column;
-  height: 9%;
+  display: flex;
+  flex-direction: column;
+  height: 13%;
+  width: 100%;
   overflow: auto;
   border: solid;
   padding: 30px;
   border-radius: 5px;
+  min-height: 700px;
 }
 
 .rockentry {
-    background: url(https://www.w3schools.com/css/paper.gif);
-    border: 2px solid green;
-    border-radius: 25px;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    padding: 5px 10px;
-  }
-
-#rockentries{
-    margin: 15px;
-    display:flex;
-    flex-direction:row;
-    justify-content: space-around;
+  background: url(https://www.w3schools.com/css/paper.gif);
+  border: 2px solid green;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 10px;
+  margin-bottom: 5%;
 }
 
-.appDiv{
+#rockentries {
+  margin: 15px;
   display: flex;
-  flex-direction:column;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.appDiv {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 1000px;
 }
 
 body {
-  background: #F5F5DC;
-  border: solid;
+  background: #f5f5dc;
 }
 
-#form1{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+#form1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
 }
 
-
-
-#loginform{
+#loginform {
   background: url(https://www.w3schools.com/css/paper.gif);
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   border: 2px solid green;
   border-radius: 25px;
   padding: 30px;
   gap: 5px;
 }
 
-.label1{
-  padding:10px;
+.label1 {
+  padding: 10px;
 }
 
 .button {
@@ -115,7 +115,7 @@ body {
 }
 
 .submit {
-  width:60px;
+  width: 60px;
   border-radius: 5px;
   margin: 2px;
   border-color: green;
@@ -125,12 +125,12 @@ body {
 }
 
 .formItem {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   font-family: 'Georgia', serif;
   font-size: larger;
   margin: 3px;
-  align-items:center;
+  align-items: center;
 }
 
 .formInput {
@@ -139,4 +139,16 @@ body {
   border-width: 1.5px;
   border-color: green;
   margin: 3px;
+}
+
+.label {
+  margin: 4px 0;
+}
+
+.memoloc {
+  font-weight: 700;
+}
+
+#roqqstarh1 {
+  font-size: 4em;
 }
