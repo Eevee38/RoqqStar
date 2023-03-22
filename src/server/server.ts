@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
-import rockRouter from './routes/rockRouter.js';
-import loginRouter from './routes/loginRouter.js';
+// import rockRouter from './routes/rockRouter.js';
+// import loginRouter from './routes/loginRouter.js';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import authController from './controllers/authController';
@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // const loginRouter = express.Router();
 
-app.post('/login', authController.auth, (req: Request, res: Response) => {
+app.post('/login', (req: Request, res: Response) => {
   const { username, password } = req.body;
   // first want to see if username is in database
   const queryString = 'SELECT password, _id FROM Users WHERE username = ($1);';
@@ -96,7 +96,23 @@ app.patch('/forgot', (req: Request, res: Response, next: NextFunction) => {
     console.log('err', err)
   })
 
-})
+});
+
+// get all of users entries from entries table
+app.get('/rocks', authController.auth, (req: Request, res: Response) => {
+  console.log('locals', res.locals.token);
+  // have to change this to be what is in aria's db
+  const queryString = 'SELECT name, location, description FROM Entries INNER JOIN Users ON Entries.user_id = ($1);';
+  const params = [res.locals.token];
+  db.query(queryString, params).then((data) => {
+    res.status(200).json({ items: data.rows });
+  }).catch((err) => {
+    console.log('err in get rocks', err);
+  })
+});
+
+// // add a new rock(entry) to entries table
+// app.post('/', (req: Request, res: Response) => {});
 
 
 

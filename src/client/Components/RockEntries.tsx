@@ -19,8 +19,15 @@ const RockEntries = () => {
 
     useEffect(() => {
         // queries database, updates location, description, and name states
+        fetch('http://localhost:3000/rocks').then((res) => {
+          return res.json();
+        }).then((data) => {
+          console.log('data in use effect', data);
+        }).catch((err) => {
+          console.log('err in rock entries use effect', err);
+        })
         setLocation([...location, 'home']);
-        setDescription([...description, 'i miss you']);
+        setDescription([...description, 'a rock']);
         setName([...name, 'no one']);
         // updates entries array
         const subArr: JSX.Element[] = [];
