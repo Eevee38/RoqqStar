@@ -1,10 +1,21 @@
+.rockentrywrapper{
+margin:30px 0;
+display:flex;
+flex-direction:column;
+}
+
 .rockentry {
-    border: 1px solid black;
+    background: url(https://www.w3schools.com/css/paper.gif);
+    border: 2px solid green;
+    border-radius: 25px;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    padding: 5px 10px;
   }
 
 #rockentries{
-    border: 1px solid black;
-    margin: 3px;
+    margin: 15px;
     display:flex;
     flex-direction:column;
 }
@@ -16,12 +27,91 @@
   align-items: center;
 }
 
+body {
+  background: #F5F5DC;
+  
+}
+
+
 #loginform{
+  background: url(https://www.w3schools.com/css/paper.gif);
   display:flex;
   flex-direction:column;
-
+  border: 2px solid green;
+  border-radius: 25px;
+  padding: 30px;
+  gap: 5px;
 }
 
 .label1{
   padding:10px;
+}
+
+.button {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 2%;
+  width: 100%;
+  border-color: green;
+  box-shadow: 1px 1px 1px rgb(0, 85, 0);
+  color: white;
+  background-color: rgb(31, 117, 31);
+}
+
+.button:hover {
+  background-color: rgb(65, 143, 65);
+  font-size: large;
+  box-shadow: 4px 2px 2px rgb(0, 85, 0);
+}
+
+.button:active {
+  box-shadow: 3px 2px 2px rgb(0, 85, 0);
+}
+
+.buttonForgot {
+  width: 50%;
+  border-radius: 5px;
+  border-color: grey;
+  margin-left: 25%;
+  margin-top: 2%;
+  color: white;
+  background-color: rgb(25, 85, 25);
+}
+
+.buttonForgot:hover {
+  background-color: rgb(65, 143, 65);
+  font-size: medium;
+  box-shadow: 4px 2px 2px rgb(0, 85, 0);
+}
+
+.submit:active {
+  box-shadow: 3px 2px 2px rgb(0, 85, 0);
+}
+
+.submit:hover {
+  background-color: rgb(65, 143, 65);
+  box-shadow: 4px 2px 2px rgb(0, 85, 0);
+}
+
+.submit {
+  border-radius: 5px;
+  margin: 2px;
+  border-color: green;
+  box-shadow: 1px 1px 1px rgb(0, 85, 0);
+  color: white;
+  background-color: rgb(31, 117, 31);
+}
+
+.formItem {
+  font-family: 'Georgia', serif;
+  font-size: larger;
+  margin: 3px;
+}
+
+.formInput {
+  border-radius: 8px;
+  border: solid;
+  border-width: 1.5px;
+  border-color: green;
+  margin: 3px;
 }
