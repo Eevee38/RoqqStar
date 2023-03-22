@@ -104,14 +104,14 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </label>
-        <button className="label1" type="submit">
+        <button className="button" type="submit">
           Login
         </button>
         <Link to="/signup">
-          <button>Sign Up</button>
+          <button className="button">Sign Up</button>
         </Link>
         <Link to="/forgot">
-          <button>Forgot My Password</button>
+          <button className="buttonForgot">Forgot My Password</button>
         </Link>
       </form>
     </>

@@ -109,49 +109,55 @@ const RockEntries = () => {
   };
 
   return (
+   <div id="rockentrywrapper2">
     <div id="rockentries">
       <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
+        <form id="form1" onSubmit={handleSubmit}>
+          <label className = "formItem">
+            Name: 
             <input
+              className = "formInput"
               type="text"
               name="name"
               value={formState.name}
               onChange={handleInputChange}
             />
           </label>
-          <label>
-            Image:
+          <label className = "formItem">
+            Image: 
             <input
+              className = "formInput"
               type="text"
               name="image"
               value={formState.image}
               onChange={handleInputChange}
             />
           </label>
-          <label>
-            Description:
+          <label className = "formItem">
+            Description: 
             <input
+              className = "formInput"
               type="text"
               name="description"
               value={formState.description}
               onChange={handleInputChange}
             />
           </label>
-          <label>
-            Location:
+          <label className = "formItem">
+            Location: 
             <input
+              className = "formInput"
               type="text"
               name="location"
               value={formState.location}
               onChange={handleInputChange}
             />
           </label>
-          <button type="submit">Submit</button>
+          <button className='submit' type="submit">Submit</button>
         </form>
       </div>
-      <div>{entries}</div>
+      <div id='entryContents'><div id="rockentrywrapper">{entries}</div></div>
+    </div>
     </div>
   );
 };
