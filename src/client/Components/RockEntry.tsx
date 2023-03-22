@@ -1,5 +1,6 @@
-import { ChangeEventHandler, useState } from 'react'
-import  { FormState } from '../../types'
+import { ChangeEventHandler, useState } from 'react';
+import * as React from 'react';
+import { FormState } from '../../types';
 import DeleteEntry from './DeleteEntry';
 import EditEntry from './EditEntry';
 // interface RockEntryProps {
@@ -13,6 +14,7 @@ import EditEntry from './EditEntry';
 
 interface RockEntryProps {
   name: string;
+  image: string;
   description: string;
   location: string;
 }
@@ -23,7 +25,7 @@ interface RockEntryProps {
 //     return (
 //     <div className="rockentry">
 //       <h2>{name}</h2>
-//       <img src={image} /> 
+//       <img src={image} />
 //       <p>{description}</p>
 //       <p>{location}</p>
 //       <DeleteEntry {...props}/>
@@ -33,14 +35,15 @@ interface RockEntryProps {
 // }
 
 const RockEntry = (props: RockEntryProps) => {
-  const { name, description, location } = props;
+  const { name, image, description, location } = props;
   return (
-    <div className='rockentry'>
+    <div className="rockentry">
       <h2>{name}</h2>
+      <img src={image} style={{ width: '200px' }} />
       <p>{description}</p>
       <p>{location}</p>
     </div>
-  )
-}
+  );
+};
 
 export default RockEntry;
