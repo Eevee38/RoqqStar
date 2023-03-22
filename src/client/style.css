@@ -1,7 +1,19 @@
-.rockentrywrapper{
-margin:30px 0;
-display:flex;
-flex-direction:column;
+#rockentrywrapper2{
+ 
+  width:700px;
+  height: 100%;
+}
+
+#rockentrywrapper{
+  /* width:500px;
+  margin:30px 0; */
+  display:flex;
+  flex-direction:column;
+  height: 9%;
+  overflow: auto;
+  border: solid;
+  padding: 30px;
+  border-radius: 5px;
 }
 
 .rockentry {
@@ -17,7 +29,8 @@ flex-direction:column;
 #rockentries{
     margin: 15px;
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
+    justify-content: space-around;
 }
 
 .appDiv{
@@ -25,12 +38,20 @@ flex-direction:column;
   flex-direction:column;
   justify-content: center;
   align-items: center;
+  width: 1000px;
 }
 
 body {
   background: #F5F5DC;
-  
+  border: solid;
 }
+
+#form1{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
 
 
 #loginform{
@@ -94,6 +115,7 @@ body {
 }
 
 .submit {
+  width:60px;
   border-radius: 5px;
   margin: 2px;
   border-color: green;
@@ -103,9 +125,12 @@ body {
 }
 
 .formItem {
+  display:flex;
+  flex-direction:column;
   font-family: 'Georgia', serif;
   font-size: larger;
   margin: 3px;
+  align-items:center;
 }
 
 .formInput {

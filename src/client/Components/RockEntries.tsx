@@ -109,10 +109,10 @@ const RockEntries = () => {
   };
 
   return (
-   <div id="rockentrywrapper">
+   <div id="rockentrywrapper2">
     <div id="rockentries">
       <div>
-        <form onSubmit={handleSubmit}>
+        <form id="form1" onSubmit={handleSubmit}>
           <label className = "formItem">
             Name: 
             <input
@@ -156,7 +156,7 @@ const RockEntries = () => {
           <button className='submit' type="submit">Submit</button>
         </form>
       </div>
-      <div id="rockentrywrapper">{entries}</div>
+      <div id='entryContents'><div id="rockentrywrapper">{entries}</div></div>
     </div>
     </div>
   );
