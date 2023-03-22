@@ -42,12 +42,17 @@ module.exports = {
       directory: path.join(__dirname, './dist'),
     },
     proxy: {
-      '/rocks': {
+      '/rock': {
         target: 'http://localhost:3000/',
         secure: false,
         changeOrigin: true,
       },
       '/login': {
+        target: 'http://localhost:3000/',
+        secure: false,
+        changeOrigin: true,
+      },
+      '/auth': {
         target: 'http://localhost:3000/',
         secure: false,
         changeOrigin: true,

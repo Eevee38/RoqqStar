@@ -1,57 +1,90 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import RockEntries from './RockEntries';
 
 interface LoginFormState {
-    username: string;
-    password: string;
-  }
-  
-  const initialLoginFormState: LoginFormState = {
-    username: "",
-    password: ""
-  };
+  username: string;
+  password: string;
+}
 
+const initialLoginFormState: LoginFormState = {
+  username: '',
+  password: '',
+};
 
 const LoginPage = () => {
-    const [loginState, setLoginState] = useState<LoginFormState>(initialLoginFormState);
+  const [loginState, setLoginState] = useState<LoginFormState>(
+    initialLoginFormState
+  );
+  const [auth, setAuth] = useState(false);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = event.target;
-      setLoginState(prevState => ({
-        ...prevState,
-        [name]: value
-      }));
-    };
-  
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      // perform login logic here using formState.username and formState.password
-      setLoginState(initialLoginFormState);
-      fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({username: loginState.username, password: loginState.password}),
-      }).then((response) => {
-        return response.json();
-      }).then((data) => {
-        console.log('data', data);
-      }).catch((error) => {
-        console.log('err', error);
+  // on component mount, fetch to auth route to check token
+  // if token is true/positive response from server, set auth to true
+  useEffect(() => {
+    fetch('http://localhost:8080/auth')
+      .then((res) => {
+        return res.json();
       })
-      clearForm();
-    };
+      .then((data) => {
+        console.log('data', data);
+        if (data.login) {
+          setAuth(true);
+        }
+      })
+      .catch((err) => {
+        console.log('error in use effect login page ', err);
+      });
+  }, []);
 
-    const clearForm = () => {
-        setLoginState({
-          username: '',
-          password: ''
-        });
-      }
-  
-    return (
-      <>
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setLoginState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // perform login logic here using formState.username and formState.password
+    setLoginState(initialLoginFormState);
+    fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: loginState.username,
+        password: loginState.password,
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log('data', data);
+        if (data.token) {
+          // update state with auth: true
+          setAuth(true);
+        }
+      })
+      .catch((error) => {
+        console.log('err', error);
+      });
+    clearForm();
+  };
+
+  const clearForm = () => {
+    setLoginState({
+      username: '',
+      password: '',
+    });
+  };
+
+  return auth ? (
+    <RockEntries />
+  ) : (
+    <>
       <form id="loginform" onSubmit={handleSubmit}>
         <label className="label1">
           Username:
@@ -71,12 +104,18 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </label>
-        <button className= "label1" type="submit">Login</button>
-        <Link to='/signup'><button>Sign Up</button></Link>
-        <Link to='/forgot'><button>Forgot My Password</button></Link>
+        <button className="label1" type="submit">
+          Login
+        </button>
+        <Link to="/signup">
+          <button>Sign Up</button>
+        </Link>
+        <Link to="/forgot">
+          <button>Forgot My Password</button>
+        </Link>
       </form>
-      </>
-    );
-  }
+    </>
+  );
+};
 
 export default LoginPage;
