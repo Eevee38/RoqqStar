@@ -3,6 +3,8 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LoginPage from './Components/LoginPage'
 import RockEntries from './Components/RockEntries';
+import SignUpPage from './Components/SignUpPage';
+import ForgotPage from './Components/ForgotPage';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +15,8 @@ const App: React.FC = () => {
         <Routes>
             <Route path="/" element={<LoginPage/>}></Route>
             <Route path="/main" element={<RockEntries/>}></Route>
+            <Route path="/signup" element={<SignUpPage/>}></Route>
+            <Route path="/forgot" element={<ForgotPage/>}></Route>
         </Routes>
     </Router>
     </div>

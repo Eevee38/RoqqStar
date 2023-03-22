@@ -1,82 +1,75 @@
 import { useState, useEffect } from 'react';
 import RockEntry from './RockEntry';
-import  { FormState } from '../../types'
-
+import  { FormState } from '../../types';
+import React from 'react';
+import { render } from 'react-dom';
 
 const RockEntries = () => {
-  const [entries, setEntries] = useState([])
-  let [id, setId] = useState(0);
-  const [formState, setFormState] = useState<FormState>({
-    name: '',
-    image: '',
-    description: '',
-    location: '',
-  });
-      
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormState(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-      
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    entries.push(<RockEntry key={id} 
-        id={id} 
-        editEntry={editEntry} 
-        deleteEntry={deleteEntry} 
-        entries={entries} 
-        formState={formState}
-        setFormState={setFormState} />);
-    setId(id += 1); 
-    setEntries( [...entries]);
-    clearForm();
-  };
+    const [location, setLocation] = useState<string[]>([]);
+    const [description, setDescription] = useState<string[]>([]);
+    const [name, setName] = useState<string[]>([]);
+    const [entries, setEntries] = useState<JSX.Element[]>([]);
+    const [formState, setFormState] = useState<FormState>({
+        name: '',
+        image: '',
+        description: '',
+        location: '',
+      });
+          
 
-  const clearForm = () => {
-    setFormState({
-      name: '',
-      image: '',
-      description: '',
-      location: '',
-    });
-  }
+    useEffect(() => {
+        // queries database, updates location, description, and name states
+        fetch('http://localhost:3000/rocks').then((res) => {
+          return res.json();
+        }).then((data) => {
+          console.log('data in use effect', data);
+        }).catch((err) => {
+          console.log('err in rock entries use effect', err);
+        })
+        setLocation([...location, 'home']);
+        setDescription([...description, 'a rock']);
+        setName([...name, 'no one']);
+        // updates entries array
+        const subArr: JSX.Element[] = [];
+        for (let i = 0; i < name.length; i ++) {
+            subArr.push(<RockEntry name = {name[i]} description = {description[i]} location = {location[i]}/>)
+            setEntries([...entries, ...subArr]);
+        }
+    }, []);
+    
+    useEffect(() => {
+        // when a change to the name arr is made, add one more new entry to entries array
+        const index = name.length - 1;
+        setEntries([...entries, <RockEntry name = {name[index]} description = {description[index]} location = {location[index]}/>]);
+    }, [name]);
 
-  const deleteEntry = (id: number): void=> {
-      const url = `http://localhost:8080/rock/delete`;
-    //   fetch(url, {
-    //     method: 'DELETE',
-    //   })
-    //   .then(response => {
-    //     if (!response.ok) {
-    //       throw new Error(`HTTP error! status: ${response.status}`);
-    //     }
-    //     // Filter out the deleted entry from the entries array
-    //     const updatedEntries = entries.filter(entry => entry.id !== id);
-    //     // Update the state with the new entries array
-    //     setEntries(updatedEntries);
-    //     console.log('Entry deleted successfully!');
-    //   })
-    //   .catch(error => {
-    //     console.error('Error deleting entry:', error);
-    //   });
-    // }
-  };
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // fetch request to put rock info into database
+        // the fetch request recieves the rock id as a response
+        setLocation([...location, formState.location]);
+        setDescription([...description, formState.description]);
+        setName([...name, formState.name]);
+        clearForm();
+    }
 
-  
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormState(prevState => ({
+          ...prevState,
+          [name]: value
+        }));
+      };
 
+    const clearForm = () => {
+        setFormState({
+          name: '',
+          image: '',
+          description: '',
+          location: '',
+        });
+      }
 
-const editEntry = (arg: number):void => {
-
-    console.log('entries in edit', arg)
-  
-}
-
-  // useEffect(() => {
-  // }, [entries]);
-      
     return (
         <div id="rockentries">
 

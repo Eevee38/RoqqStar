@@ -3,14 +3,23 @@ import jwt from 'jsonwebtoken';
 import db from '../db';
 import bcrypt from 'bcrypt';
 
-type Controller = { auth: RequestHandler, userCheck: RequestHandler, createUser: RequestHandler};
+type Controller = { auth: RequestHandler, userCheck: RequestHandler, createUser: RequestHandler };
 
 const authController: Controller = { 
     auth : (req: Request, res: Response, next: NextFunction) => {
-    console.log('hi');
-    return next();
     // check if token on cookie is valid 
     // jwt.verify(token, process.env.SECRET_KEY)
+    type Token = {token: string};
+    if (req.cookies.token) {
+        jwt.verify(req.cookies.token, process.env.SECRET_KEY, function(err: Error, decoded: Token) {
+            if (err) {
+                console.log('err', err);
+            } else {
+                res.locals.token = decoded.token;
+                return next();
+            }
+        });
+    }
     },
     userCheck : (req: Request, res: Response, next: NextFunction) => {
         const { username, password, email } = req.body;
