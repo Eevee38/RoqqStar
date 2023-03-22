@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import authController from './controllers/authController';
 import bcrypt from 'bcrypt';
+import db from './db';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -21,37 +22,80 @@ app.use(cookieParser());
 // const loginRouter = express.Router();
 
 app.post('/login', authController.auth, (req: Request, res: Response) => {
-  // const { username, password } = req.body;
+  const { username, password } = req.body;
   // first want to see if username is in database
+  const queryString = 'SELECT password, _id FROM Users WHERE username = ($1);';
+  const params = [];
+  params.push(username);
   // if it is, we return the hashed password and user id from the db
-  // bcrypt.compare the two passwords
-  // if passwords match, create a jwt with the user id stored in it
-  console.log('in login');
-  const payload = { userID: 1 };
-  console.log('secret key', process.env.SECRET_KEY);
-  const token = jwt.sign(
-    payload,
-    process.env.SECRET_KEY,
-    {
-      expiresIn: '1d',
-    }
-    // function (err: Error, token: string) {
-    //   console.log('err', err);
-    //   console.log('token', token);
-    // }
-  );
-  console.log('jwt set');
-  res.cookie('token', token, {
-    maxAge: 8.64e7,
-    httpOnly: true,
-  });
-  console.log('cookie set');
-  return res.status(200).json({ token: token });
+  db.query(queryString, params).then((data) => {
+    if (!data.rows.length) {
+      console.log('username does not exist!')
+      res.sendStatus(403);
+    } else {
+      // bcrypt.compare the two passwords
+      // if passwords match, create a jwt with the user id stored in it
+      console.log('password', data.rows[0].password);
+      bcrypt.compare(password, data.rows[0].password).then((isSame) => {
+        if (!isSame) {
+          console.log('Incorrect password');
+          res.sendStatus(403);
+          
+        } else {
+          console.log('password matches');
+          const payload = { userID: data.rows[0]._id };
+          // console.log('secret key', process.env.SECRET_KEY);
+          const token = jwt.sign(
+            payload,
+            process.env.SECRET_KEY,
+            {
+              expiresIn: '1d',
+            }
+            // function (err: Error, token: string) {
+            //   console.log('err', err);
+            //   console.log('token', token);
+            // }
+            );
+      console.log('jwt set');
+      res.cookie('token', token, {
+        maxAge: 8.64e7,
+        httpOnly: true,
+      });
+      console.log('cookie set');
+      return res.status(200).json({ token: token });
+      }
+    })
+  }
+})
+
 });
 
 app.post('/create', authController.userCheck, authController.createUser, (req: Request, res: Response, next: NextFunction) => {
   console.log('made it');
   res.sendStatus(201);
+});
+
+app.patch('/forgot', (req: Request, res: Response, next: NextFunction) => {
+  //takes username and new password from req.body
+  const { username, newPassword } = req.body;
+  // hashes new password and replaces the old password in db
+  const saltRounds = 10;
+  bcrypt.hash(newPassword, saltRounds).then((hash) => {
+    const queryString = 'UPDATE Users SET password = ($1) WHERE username = ($2);';
+    const params = [];
+    params.push(hash, username);
+    db.query(queryString, params).then((data) => {
+      console.log('data after updating password', data);
+      res.status(200).send('password updated succesfully!')
+    })
+    .catch((err) => {
+      console.log('err', err)
+    })
+  })
+  .catch((err) => {
+    console.log('err', err)
+  })
+
 })
 
 
