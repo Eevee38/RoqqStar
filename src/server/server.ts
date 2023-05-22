@@ -10,6 +10,8 @@ import db from './db';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+console.log('hi');
+
 // const { Request, Response, NextFunction } = require('express');
 
 const app = express();
